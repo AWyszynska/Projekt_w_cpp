@@ -1,0 +1,196 @@
+g++ -c shop.cpp -o shop.o
+g++ -c guziksklep.cpp -o guziksklep.o
+g++ -c guzik.cpp -o guzik.o
+g++ -c menu.cpp -o menu.o
+g++ -c main.cpp -o main.o
+g++ -c gra.cpp -o gra.o
+g++ -c guzikwarz.cpp -o guzikwarz.o
+g++ -c garden.cpp -o garden.o
+g++ -c openall.cpp -o openall.o
+g++ -c orchard.cpp -o orchard.o
+g++ -c cave.cpp -o cave.o
+g++ -c hodowla.cpp -o hodowla.o
+g++ -c timerbar.cpp -o timerbar.o
+g++ -c valuehandler.cpp -o valuehandler.o
+g++ -c HoverDisplayss.cpp -o HoverDisplayss.o
+g++ main.o openall.o gra.o guzik.o menu.o garden.o guzikwarz.o shop.o guziksklep.o cave.o orchard.o hodowla.o timerbar.o-o handlarz -lsfml-graphics -lsfml-window -lsfml-system
+
+
+
+
+g++ -c mousehoverdisplay.cpp -o mousehoverdisplay.o
+
+
+
+
+
+
+
+void Hodowla::updateCowMovement() {
+    sf::Vector2f velocity(vx, vy);
+    sf::Vector2f position = krowa.getPosition();
+
+    if (position.x <= 400) {
+        velocity.x = abs(velocity.x); // Ustawiamy prędkość w prawo, jeśli pozycja jest mniejsza lub równa 400
+    } else if (position.x >= 600) {
+        velocity.x = -abs(velocity.x); // Ustawiamy prędkość w lewo, jeśli pozycja jest większa lub równa 600
+    }
+
+    krowa.move(velocity);
+    krowa.setPosition(std::clamp(krowa.getPosition().x, 400.0f, 600.0f), 390.0f);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <SFML/Graphics.hpp>
+#include <vector>
+#include <random>
+
+int main() {
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Losowanie zdjęć SFML");
+
+    std::vector<std::string> imagePaths = {
+        "sciezka/do/zdjecia1.jpg",
+        "sciezka/do/zdjecia2.jpg",
+        "sciezka/do/zdjecia3.jpg",
+        "sciezka/do/zdjecia4.jpg",
+        "sciezka/do/zdjecia5.jpg",
+        "sciezka/do/zdjecia6.jpg"
+        // Dodaj ścieżki do kolejnych zdjęć
+    };
+
+    std::vector<sf::Texture> textures;
+    for (const auto& path : imagePaths) {
+        sf::Texture texture;
+        if (!texture.loadFromFile(path)) {
+            // Obsługa błędu ładowania zdjęcia
+            return EXIT_FAILURE;
+        }
+        textures.push_back(texture);
+    }
+
+    sf::Sprite currentSprite;
+    sf::Font font;
+    if (!font.loadFromFile("sciezka/do/czcionki.ttf")) {
+        // Obsługa błędu ładowania czcionki
+        return EXIT_FAILURE;
+    }
+
+    sf::Text text("Naciśnij, aby losować zdjęcia!", font, 24);
+    text.setPosition(250, 250);
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(0, imagePaths.size() - 1);
+
+    bool isShowing = false;
+
+    while (window.isOpen()) {
+        sf::Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed) {
+                window.close();
+            }
+
+            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space) {
+                isShowing = true;
+                int randomIndex = dis(gen);
+                currentSprite.setTexture(textures[randomIndex]);
+            }
+        }
+
+        window.clear(sf::Color::White);
+
+        if (isShowing) {
+            window.draw(currentSprite);
+        } else {
+            window.draw(text);
+        }
+
+        window.display();
+    }
+
+    return EXIT_SUCCESS;
+}
+
+
+
+
+
+
+
+
+
+
+
+ else if (event.type == sf::Event::MouseButtonPressed) {
+            if (event.mouseButton.button == sf::Mouse::Left) {
+                isRightMouseDown = true;
+                rightClickTimer.restart();
+            }
+        } else if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
+            isRightMouseDown = false;
+        }
+
+
+
+
+
+
+
+
+
+
+
+    price7.setTexture(pricesset7);
+    price7.setPosition(164.0f, 570.0f);
+    price7.setScale(0.5f, 0.5f);
+        if(!pricesset8.loadFromFile("aazdj/krowajajkocena.png"))
+    {
+        std::cerr << "Błąd podczas wczytywania." << std::endl;
+    }
+    price8.setTexture(pricesset8);
+    price8.setPosition(334.0f, 570.0f);
+    price8.setScale(0.5f, 0.5f);
+        if(!pricesset9.loadFromFile("aazdj/kurajajkocena.png"))
+    {
+        std::cerr << "Błąd podczas wczytywania." << std::endl;
+    }
+    price9.setTexture(pricesset9);
+    price9.setPosition(504.0f, 570.0f);
+    price9.setScale(0.5f, 0.5f);
+
+
+
+
+        sf::Sprite price7;
+    sf::Sprite price8;
+    sf::Sprite price9;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
